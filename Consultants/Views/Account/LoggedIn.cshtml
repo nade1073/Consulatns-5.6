@@ -1,0 +1,55 @@
+﻿@model Consultants.Models.UserAccount
+
+@{
+    ViewBag.Title = "חיפוש יועצים";
+}
+
+@if (Session["UserName"] != null)
+
+{ <h4>Hello @Session["UserName"].ToString()</h4> }
+
+<script type="text/javascript">
+
+
+    function OnCreate() {
+    //    $(document).ready(function () {
+            var type = @Html.Raw(Json.Encode(ViewBag.type));
+            if(type=="user")
+            {
+                document.getElementById("smartForm").style.display="none";
+             
+            }
+           
+
+        //});
+    }
+
+
+
+    window.onload = OnCreate;
+
+    </script>
+
+
+
+<body>
+    <div class="main-class">
+        <section id="">
+            @using (Html.BeginForm())
+            {
+                <div>
+                    <input class="container" type="submit" value="שינוי סיסמא" formaction="@Url.Action("ChangePassword")" }) />
+                </div>
+
+                <div>
+
+                    <input type="button"  class="myButton" id="smartForm" name="טופס חכם" value="smartform" onclick="location.href='@Url.Action("SmartForm","account")'" }) />
+                </div>
+
+
+
+                }
+</section>
+        </div>
+    </body>
+

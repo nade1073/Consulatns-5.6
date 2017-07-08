@@ -1,0 +1,373 @@
+﻿@model Consultants.Models.TextBox
+
+
+<!doctype html>
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Draggable - Default functionality</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"> </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <style>
+        #style {
+            width: 200px;
+            height: 200px;
+            padding: 0.5em;
+         
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <script>
+        var count = 0;
+        $(document).ready(function () {
+            $('#textBoxButton').click(function () {
+                $('#container1').append("<div class=window><div class=bar>:תיבת טקסט</div><div contentEditable=true class=textbox>הקלד פה</div></div>");
+                $(".window").draggable({
+                    handle: '.bar'
+                });
+                //$(".textbox").resizable({
+                //    handles: "se"
+                //});
+
+            });
+
+            $(".textbox").on("click", function (e) {
+                $(".window").draggable('disable');
+                $(this).find(".textbox").focus();
+            });
+
+            $(".textbox").on("blur", function () {
+                $(".window").draggable('enable');
+            });
+
+
+            $(function () {
+                $('#container1').draggable(
+                 {
+                     drag: function () {
+                         var offset = $(this).offset();
+                         var xPos = offset.left;
+                         var yPos = offset.top;
+                         var width = offset.width;
+                         var height = offset.height;
+                         //$(this).text('x: ' + xPos + 'y: ' + yPos);
+                        
+                     }
+                 });
+
+            });
+        });
+
+    </script>
+   
+    <script>
+
+        $(document).ready(function () {
+            $('#save').click(function () {
+
+
+
+            });
+        });
+
+    </script>
+  
+
+    <script>
+        $(document).ready(function () {
+            $('#mybtnedit').click(function () {
+                var newInput = document.createElement('input');
+                newInput.id = "text" ;
+                newInput.name = "text" ;
+                newInput.type = "text" ;
+                $('#container1').append("<div class=window><div class=bar>:תיבת עריכה</div><div class=editbox><input type=newInput></div></div>");
+                $(".window").draggable({ handle: '.bar' });
+              
+
+            });
+
+            $(".editbox").on("click", function (e) {
+                $(".window").draggable('disable');
+                $(this).find(".editbox").focus();
+            });
+
+            $(".editbox").on("blur", function () {
+                $(".window").draggable('enable');
+            });
+
+            $(function () {
+                $('#container1').draggable(
+                 {
+                     drag: function () {
+                         var offset = $(this).offset();
+                         var xPos = offset.left;
+                         var yPos = offset.top;
+                        
+                         //$(this).text('x: ' + xPos + 'y: ' + yPos);
+
+                     }
+                 });
+
+            });
+
+
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#mybtnimage').click(function () {
+                var newInputimage = document.createElement('file');
+                newInputimage.type = "file";
+                newInputimage.id = "file";
+                newInputimage.name = "file";
+                newInputimage.alt = "Your image";
+                newInputimage.src = "#";
+
+                    
+             
+                $('#container').append("<div class=window><div class=bar>:תמונה</div><div class=image><input type=newInputimage></div></div>");
+                $(".window").draggable({ handle: '.bar' });
+
+
+            });
+
+            $(".image").on("click", function (e) {
+                $(".window").draggable('disable');
+                $(this).find(".image").focus();
+            });
+
+            $(".image").on("blur", function () {
+                $(".window").draggable('enable');
+            });
+        });
+    </script>
+
+
+
+</head>
+<body>
+    @Html.BeginForm(){ 
+    
+    <div id="container">
+        <button id="textBoxButton">הכנס תיבת טקסט</button>
+        <button id="mybtnimage">יצירת תמונה </button>
+        <button id="mybtnedit">הכנס תיבת עריכה </button>
+        <input type="submit" id="save" value="שמור"/>
+
+    </div>
+    <div id="container1">
+
+
+   </div>
+    }
+</body>
+</html>
+
+
+
+
+@*-------------------------------------------------------------------------------------------------------*@
+
+@*<html>
+<head>
+    <title>Draggable, Moveable and Resizable DIV using jQuery</title>
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+    <script>
+    var element_pos = 0;    // POSITION OF THE NEWLY CREATED ELEMENTS.
+    var iCnt = 0;
+    $(document).ready(function() {
+
+        $(function() { $('#divContainer').draggable(); });
+        $(function() { $("#divResize").draggable().resizable(); });
+
+        // CREATE MORE DIV, WITH 'ABSOLUTE' POSITIONING.
+        $('#btClickMe').click(function() {
+
+            var dynamic_div = $(document.createElement('div')).css({
+                border: '1px dashed', position: 'absolute', left: element_pos,
+                top: $('#divContainer').height() + 20,
+                width: '120', height: '120', padding: '3', margin: '0'
+            });
+
+            element_pos = element_pos + $('#divContainer').width() + 20;
+
+            $(dynamic_div).append('You can drag me too');
+
+            // APPEND THE NEWLY CREATED DIV TO "divContainer".
+            $(dynamic_div).appendTo('#divContainer').draggable();
+
+            iCnt = iCnt + 1;
+        });
+    });
+    </script>
+    <style>
+        #divContainer, #divResize {
+            border: dashed 1px #CCC;
+            width: 120px;
+            height: 120px;
+            padding: 5px;
+            margin: 5px;
+            font: 13px Arial;
+            cursor: move;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="divContainer">
+            I am Draggable
+        </div>
+
+        <input type="button" style="float:left" id="btClickMe" value="Create more draggable DIV's" />
+
+        <div id="divResize">
+            I am Draggable and Resizable
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+<html>
+<head>
+    <title>Create Elements Dynamically using jQuery</title>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+
+        $(function () { $('#tb').draggable(); });
+    $(document).ready(function() {
+
+        var iCnt = 0;
+        // CREATE A "DIV" ELEMENT AND DESIGN IT USING jQuery ".css()" CLASS.
+        var container = $(document.createElement('div')).css({
+            padding: '5px', margin: '20px', width: '170px', border: '1px dashed',
+            borderTopColor: '#999', borderBottomColor: '#999',
+            borderLeftColor: '#999', borderRightColor: '#999'
+        });
+
+        $('#btAdd').click(function() {
+            if (iCnt <= 19) {
+
+                iCnt = iCnt + 1;
+
+                // ADD TEXTBOX.
+                $(container).append('<input type=text class="input" id=tb' + iCnt + ' ' +
+                            'value="Text Element ' + iCnt + '" />');
+                $(container).appendTo('#input').draggable();
+                // SHOW SUBMIT BUTTON IF ATLEAST "1" ELEMENT HAS BEEN CREATED.
+                if (iCnt == 1) {
+
+                    var divSubmit = $(document.createElement('div'));
+                    $(divSubmit).append('<input type=button class="bt"' +
+                        'onclick="GetTextValue()"' +
+                            'id=btSubmit value=Submit />');
+
+                }
+
+                // ADD BOTH THE DIV ELEMENTS TO THE "main" CONTAINER.
+                $('#main').after(container, divSubmit);
+            }
+            // AFTER REACHING THE SPECIFIED LIMIT, DISABLE THE "ADD" BUTTON.
+            // (20 IS THE LIMIT WE HAVE SET)
+            else {
+                $(container).append('<label>Reached the limit</label>');
+                $('#btAdd').attr('class', 'bt-disable');
+                $('#btAdd').attr('disabled', 'disabled');
+            }
+        });
+
+        // REMOVE ONE ELEMENT PER CLICK.
+        $('#btRemove').click(function() {
+            if (iCnt != 0) { $('#tb' + iCnt).remove(); iCnt = iCnt - 1; }
+
+            if (iCnt == 0) {
+                $(container)
+                    .empty()
+                    .remove();
+
+                $('#btSubmit').remove();
+                $('#btAdd')
+                    .removeAttr('disabled')
+                    .attr('class', 'bt');
+            }
+        });
+
+        // REMOVE ALL THE ELEMENTS IN THE CONTAINER.
+        $('#btRemoveAll').click(function() {
+            $(container)
+                .empty()
+                .remove();
+
+            $('#btSubmit').remove();
+            iCnt = 0;
+
+            $('#btAdd')
+                .removeAttr('disabled')
+                .attr('class', 'bt');
+        });
+    });
+
+    // PICK THE VALUES FROM EACH TEXTBOX WHEN "SUBMIT" BUTTON IS CLICKED.
+    var divValue, values = '';
+
+    function GetTextValue() {
+
+        $(divValue)
+            .empty()
+            .remove();
+
+        values = '';
+
+        $('.input').each(function() {
+            divValue = $(document.createElement('div')).css({
+                padding:'5px', width:'200px'
+            });
+            values += this.value + '<br />'
+        });
+
+        $(divValue).append('<p><b>Your selected values</b></p>' + values);
+        $('body').append(divValue);
+    }
+    </script>
+
+
+
+
+    <style>
+        body {
+            font: 13px verdana;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <input type="button" id="btAdd" value="Add Element" class="bt" />
+        <input type="button" id="btRemove" value="Remove Element" class="bt" />
+        <input type="button" id="btRemoveAll" value="Remove All" class="bt" /><br />
+    </div>
+</body>
+
+
+
+</html>*@

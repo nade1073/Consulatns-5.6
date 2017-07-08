@@ -1,0 +1,65 @@
+﻿@model Consultants.Models.UserAccount
+
+@{
+    ViewBag.Title = "הרשמה";
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container-reg">
+        <section id="content-reg">
+            <h1>הרשמה</h1>
+            
+
+@using (Html.BeginForm())
+{
+      
+    <div>
+        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { type = "text", placeholder = "שם פרטי", id = "username", required = "" } })
+        @*<input type="text" name="Enter" placeholder="?? ?????" required="" id="username" />*@
+    </div>
+
+    <div>
+        @*<input type="password" name="Password" placeholder="?????" required="" id="password" />*@
+        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { type = "text", placeholder = "שם משפחה", id = "username",required = "" } })
+    </div>
+    <div>
+        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { type = "text", placeholder = "שם משתמש", id = "username" , required = "" } })
+    </div>
+
+    <div>
+      
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { type = "password", placeholder = "סיסמא", id = "password" , required = "" } })
+    </div>
+
+        <div>
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { type = "password", placeholder = "אישור סיסמא", id = "password" , required = "" } })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { type = "text", placeholder = "אימייל", id = "username" } })
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div>
+            <b>האם לקבל דיוור ממפ"י</b>
+                <input id="checkbox" name="check" type="checkbox" value="true" />
+        </div>
+
+
+        <div>
+            <input type="submit" value="הרשם"/>
+            <input type="button" value="חזור" onclick= "location.href='@Url.Action("Login","account")'" })/>
+            <span style="color:red;">@TempData["Message"]</span>
+        </div>
+}
+        </section>
+    </div>
+</body>
+
+</html>
